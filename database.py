@@ -6,7 +6,7 @@ import bcrypt
 class SQLite:
 
     def __init__(self):
-        self.db = sqlite3.connect('./db/assetmanager.db').cursor()
+        self.db = sqlite3.connect('./db/database.db').cursor()
         self.create_users_table()
 
     def create_users_table(self):
