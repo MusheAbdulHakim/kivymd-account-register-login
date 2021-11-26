@@ -1,6 +1,7 @@
 from kivy.uix.screenmanager import Screen
 from kivy.lang import Builder
 from kivymd.uix.dialog import MDDialog
+from kivymd.toast import toast
 from kivymd.uix.button import MDFlatButton
 from kivy.properties import ObjectProperty
 from database import MySQLdb
@@ -18,14 +19,15 @@ class RegisterAccountScreen(Screen):
     
     
     def register_btn_click(self):
-        self.ids.register_btn.text = 'account created'
         fullname = self.ids.fullname.text
         username = self.ids.username.text
         email = self.ids.email.text
         password = self.ids.password.text
         create_user = self.db.create_user(fullname, username, email, password)
-        
-
+        if create_user:
+            toast('user account created successfully')
+        if not create_user:
+            toast('account not created')
 
     def show_alert_dialog(self):
         if not self.dialog:
@@ -60,7 +62,11 @@ class LoginScreen(Screen):
     def user_login(self):
         username = self.ids.login_username.text
         password = self.ids.login_password.text
-        self.db.login(username, password)
+        login = self.db.login(username, password)
+        if login:
+            toast('User has login successfully')
+        if not login:
+            toast('You have entered wrong user credentials')
 
 
         

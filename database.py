@@ -3,6 +3,7 @@ import mysql.connector
 import bcrypt
 
 
+
 class SQLite:
 
     def __init__(self):
@@ -34,10 +35,11 @@ class MySQLdb:
             database="kivy_login"
             )
         self.cursor = self.db.cursor()
+        self.create_users_table()
     
     
     def create_database(self):
-        self.cursor.execute("CREATE DATABASE kivy_myasset")
+        self.cursor.execute("CREATE DATABASE kivy_login")
 
 
     def show_databases(self):
@@ -54,19 +56,19 @@ class MySQLdb:
         password_hash = bcrypt.hashpw(password_bytes, bcrypt.gensalt())
         sql = "INSERT INTO users (name, username,email,password) VALUES (%s, %s, %s, %s)"
         values = (name,username,email,password_hash)
-        self.cursor.execute(sql,values)
+        execute = self.cursor.execute(sql,values)
         self.db.commit()
-
+        return True
+       
     def login(self,username,password):
         query = "SELECT * FROM users WHERE username = %s"
         self.cursor.execute(query,(username,))
         users = self.cursor.fetchall()
         for user in users:
             if bcrypt.checkpw(bytes(password,'utf-8'), bytes(user[-1],'utf-8')):
-                print("it matches")
-                return user
+                return True
             else: 
-                print("password doesn't match")
+                return False
 
     def delete_user(self,id):
         sql = "DELETE FROM users WHERE id = %s"
