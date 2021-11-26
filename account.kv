@@ -1,0 +1,145 @@
+         
+<RegisterAccountScreen>:
+    name: "register"
+    AnchorLayout:
+        GridLayout:
+            rows: 3
+            size_hint: .7,1
+            spacing: dp(5)
+            MDBoxLayout:
+                orientation: "vertical"
+                MDTextField:
+                    id: fullname
+                    hint_text: "Name"
+                    required: True
+                    icon_right: "account"
+                    write_tab: False
+                    helper_text_mode: "on_error"
+                    helper_text: "This field is required"
+                    on_text_validate:
+                        
+                        
+                
+                MDTextField:
+                    id: username
+                    hint_text: "Username"
+                    required: True
+                    icon_right: "account"
+                    write_tab: False
+                    helper_text_mode: "on_error"
+                    helper_text: "This field is required"
+                    on_text_validate: 
+                        
+                
+                MDTextField:
+                    id: email
+                    hint_text: "Email"
+                    required: True
+                    icon_right: "email"
+                    write_tab: False
+                    helper_text_mode: "on_error"
+                    helper_text: "This field is required"
+                    on_text_validate: 
+                        
+                
+                MDTextField:
+                    id: password
+                    hint_text: "Password"
+                    required: True
+                    icon_right: "lock"
+                    write_tab: False
+                    password: True
+                    helper_text_mode: "on_error"
+                    helper_text: "This field is required"
+                    on_text_validate: 
+                        
+                MDTextField:
+                    id: confirm_password
+                    hint_text: "Confirm Password"
+                    required: True
+                    icon_right: "lock"
+                    write_tab: False
+                    password: True
+                    helper_text_mode: "on_error"
+                    helper_text: "This field is required"
+                    on_text_validate: 
+                        
+                
+            MDRoundFlatButton:
+                id: register_btn
+                size_hint: .2, None
+                text: "Register"
+                disabled: not password.text == confirm_password.text
+                on_press: 
+                    root.register_btn_click()
+                on_release:
+                   
+            MDBoxLayout:
+                MDLabel:
+                    halign: "left"
+                    text: "Already have an account ?"
+                
+                MDFlatButton:
+                    text: "Login"
+                    halign: "left"
+                    pos_hint: {"y": .5}
+                    on_release: 
+                        app.root.current = "login"
+                        root.manager.transition.direction = 'left'
+
+
+<LoginScreen>:
+    name: "login"
+    AnchorLayout:
+        GridLayout:
+            rows: 3
+            size_hint: .5,.5
+            MDBoxLayout:
+                orientation: "vertical"
+                spacing: dp(10)
+                MDTextField:
+                    id: login_username
+                    hint_text: "Username"
+                    write_tab: False
+                    required: True
+                    icon_right: "account"
+                    helper_text_mode: "on_error"
+                    helper_text: "This field is required"
+                
+            
+                MDTextField:
+                    id: login_password
+                    hint_text: "Password"
+                    write_tab: False
+                    required: True
+                    icon_right: "key"
+                    password: True
+                    helper_text_mode: "on_error"
+                    helper_text: "This field is required"
+                
+            MDRoundFlatButton:
+                id: login_btn
+                size_hint: .2, None
+                text: "Login"
+                on_press:
+                    root.user_login()
+                on_release:
+
+            MDBoxLayout:
+                MDLabel:
+                    halign: "left"
+                    text: "Don't have an account ?"
+                
+                MDFlatButton:
+                    text: "Register"
+                    halign: "left"
+                    on_release: 
+                        app.root.current = "register"
+                        root.manager.transition.direction = 'right'
+
+
+
+<UserProfile>:
+
+
+
